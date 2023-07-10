@@ -1,6 +1,6 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location, create_employee
+from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location, create_employee, create_customers
 
 
 
@@ -92,6 +92,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         new_animal = None
         new_location = None
         new_employee = None
+        new_customer = None
         # Add a new animal to the list. Don't worry about
         # the orange squiggle, you'll define the create_animal
         # function next.
@@ -107,6 +108,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "employees":
             new_employee = create_employee(post_body)
             response = new_employee
+
+        if resource == "customers":
+            new_customer = create_customers(post_body)
+            response = new_customer
 
         
         self.wfile.write(json.dumps(response).encode())
