@@ -1,6 +1,6 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees
+from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers
 
 
 
@@ -65,6 +65,13 @@ class HandleRequests(BaseHTTPRequestHandler):
 
             else:
                 response = get_all_employees()
+
+        if resource =="customers":
+            if id is not None:
+                response = get_single_customers(id)
+
+            else:
+                response = get_all_customers()
 
         self.wfile.write(json.dumps(response).encode())
 
