@@ -1,6 +1,6 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location
+from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location, create_employee
 
 
 
@@ -91,17 +91,25 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Initialize new animal
         new_animal = None
         new_location = None
+        new_employee = None
         # Add a new animal to the list. Don't worry about
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "animals":
             new_animal = create_animal(post_body)
         # Encode the new animal and send in response
-        self.wfile.write(json.dumps(new_animal).encode())
+            response = new_animal
 
         if resource == "locations":
             new_location = create_location(post_body)
-        self.wfile.write(json.dumps(new_location).encode())
+            response = new_location
+
+        if resource == "employees":
+            new_employee = create_employee(post_body)
+            response = new_employee
+
+        
+        self.wfile.write(json.dumps(response).encode())
 
 
     # A method that handles any PUT request.
