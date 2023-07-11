@@ -28,3 +28,9 @@ def create_customers(customer):
     customer["id"] = new_id
     CUSTOMERS.append(customer)
     return customer
+
+def delete_customer(id):
+    customer_index = -1
+
+    for index, customer in enumerate(CUSTOMERS):
+        if customer[]
