@@ -1,6 +1,6 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location, create_employee, create_customers, delete_animal, delete_employee, delete_customer
+from views import get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees, get_single_customers, get_all_customers, create_animal, create_location, create_employee, create_customers, delete_animal, delete_employee, delete_customer, delete_locations
 
 
 
@@ -155,6 +155,9 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Delete a single animal from the list
         if resource == "animals":
             delete_animal(id)
+
+        if resource == "locations":
+            delete_locations(id)
 
         if resource == "employees":
             delete_employee(id)
