@@ -2,12 +2,14 @@ EMPLOYEES = [
     {
         "id": 1,
         "name": "Sam Thrasher",
-        "test": "test"
+        "locationId" : 2,
+        "animalId" : 1
     },
     {
         "id": 2,
         "name": "Lance Buckley",
-        "test": "test"
+        "locationId" : 1,
+        "animalId" : 3
     },
 ]
 

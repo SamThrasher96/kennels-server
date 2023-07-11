@@ -1,13 +1,15 @@
 CUSTOMERS = [
     {
         "id" : 1,
-        "fullName" : "Miguel Morales",
-        "email": "miguel@gmail.com"
+        "name" : "Miguel Morales",
+        "email": "miguel@gmail.com",
+        "address": "123 street"
     },
     {
         "id" : 2,
-        "fullName" : "Daniel Cicalese",
-        "email": "daniel@gmail.com"
+        "name" : "Daniel Cicalese",
+        "email": "daniel@gmail.com",
+        "address": "123 street"
     }
 ]
 
