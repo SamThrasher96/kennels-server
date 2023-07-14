@@ -230,23 +230,27 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
     # Set a 204 response code
-        self._set_headers(204)
-
     # Parse the URL
         (resource, id) = self.parse_url(self.path)
 
-    # Delete a single animal from the list
-        if resource == "animals":
-            delete_animal(id)
-
-        if resource == "locations":
-            delete_locations(id)
-
-        if resource == "employees":
-            delete_employee(id)
-
         if resource == "customers":
-            delete_customer(id)
+            self._set_headers(405)
+            response = "Warning: Deleting customers is not allowed"
+            self.wfile.write(json.dumps(response).encode())
+        else:
+            self._set_headers(204)
+    # Delete a single animal from the list
+            if resource == "animals":
+                self._set_headers(204)
+                delete_animal(id)
+
+            elif resource == "locations":
+                self._set_headers(204)
+                delete_locations(id)
+
+            elif resource == "employees":
+                self._set_headers(204)
+                delete_employee(id)
 
     # Encode the new animal and send in response
         self.wfile.write("".encode())
