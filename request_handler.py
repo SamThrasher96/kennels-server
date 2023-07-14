@@ -38,7 +38,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Here's a method on the class that overrides the parent's method.
     # It handles any GET request.
     def do_GET(self):
-        self._set_headers(200)
         response = {}  # Default response
 
         # Parse the URL and capture the tuple that is returned
@@ -48,32 +47,40 @@ class HandleRequests(BaseHTTPRequestHandler):
             if id is not None:
                 animal = get_single_animal(id)
                 if animal is not None:
+                    self._set_headers(200)
                     response = animal
                 else:
                     self._set_headers(404)
                     response = f"Animal {id} is out playing right now"
             else:
+                self._set_headers(200)
                 response = get_all_animals()
 
         if resource =="locations":
             if id is not None:
+                self._set_headers(200)
                 response = get_single_location(id)
 
             else:
+                self._set_headers(200)
                 response = get_all_locations()
 
         if resource =="employees":
             if id is not None:
+                self._set_headers(200)
                 response = get_single_employee(id)
 
             else:
+                self._set_headers(200)
                 response = get_all_employees()
 
         if resource =="customers":
             if id is not None:
+                self._set_headers(200)
                 response = get_single_customers(id)
 
             else:
+                self._set_headers(200)
                 response = get_all_customers()
 
         self.wfile.write(json.dumps(response).encode())
@@ -81,7 +88,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     # Here's a method on the class that overrides the parent's method.
     # It handles any POST request.
     def do_POST(self):
-        self._set_headers(201)
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
 
@@ -100,13 +106,41 @@ class HandleRequests(BaseHTTPRequestHandler):
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "animals":
-            new_animal = create_animal(post_body)
+            if "name" in post_body and "species" in post_body and "locationId" in post_body and "customerId" in post_body and "status" in post_body:
+                self._set_headers(201)
+                new_animal = create_animal(post_body)
         # Encode the new animal and send in response
-            response = new_animal
+                response = new_animal
+            else:
+                self._set_headers(400)
+                error_message = ""
+                if "name" not in post_body:
+                    error_message += "WARNING: name is required."
+                if "species" not in post_body:
+                    error_message += "WARNING: species is required."
+                if "locationId" not in post_body:
+                    error_message += "WARNING: location id is required."
+                if "customerId" not in post_body:
+                    error_message += "WARNING: customer id is required."
+                if "status" not in post_body:
+                    error_message += "WARNING: status is required."
+                new_animal = error_message
+                response = new_animal
 
         if resource == "locations":
-            new_location = create_location(post_body)
-            response = new_location
+            if "name" in post_body and "address" in post_body:
+                self._set_headers(201)
+                new_location = create_location(post_body)
+                response = new_location
+            else:
+                self._set_headers(400)
+                error_message = ""
+                if "name" not in post_body:
+                    error_message += "WARNING: name is required."
+                if "address" not in post_body:
+                    error_message += "WARNING: address is required."
+                new_location = error_message
+                response = new_location
 
         if resource == "employees":
             new_employee = create_employee(post_body)
