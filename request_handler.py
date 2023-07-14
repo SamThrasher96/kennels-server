@@ -160,8 +160,21 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = new_employee
 
         if resource == "customers":
-            new_customer = create_customers(post_body)
-            response = new_customer
+            if "name" in post_body and "email" in post_body and "address" in post_body:
+                self._set_headers(201)
+                new_customer = create_customers(post_body)
+                response = new_customer
+            else:
+                self._set_headers(400)
+                error_message = ""
+                if "name" not in post_body:
+                    error_message += "WARNING: name is required."
+                if "email" not in post_body:
+                    error_message += "WARNING: email id is required."
+                if "address" not in post_body:
+                    error_message += "WARNING: address is required."
+                new_customer = error_message
+                response = new_customer
 
         
         self.wfile.write(json.dumps(response).encode())
