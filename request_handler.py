@@ -46,8 +46,12 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "animals":
             if id is not None:
-                response = get_single_animal(id)
-
+                animal = get_single_animal(id)
+                if animal is not None:
+                    response = animal
+                else:
+                    self._set_headers(404)
+                    response = f"Animal {id} is out playing right now"
             else:
                 response = get_all_animals()
 
