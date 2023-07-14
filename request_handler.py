@@ -143,8 +143,21 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = new_location
 
         if resource == "employees":
-            new_employee = create_employee(post_body)
-            response = new_employee
+            if "name" in post_body and "locationId" in post_body and "animalId" in post_body:
+                self._set_headers(201)
+                new_employee = create_employee(post_body)
+                response = new_employee
+            else:
+                self._set_headers(400)
+                error_message = ""
+                if "name" not in post_body:
+                    error_message += "WARNING: name is required."
+                if "locationId" not in post_body:
+                    error_message += "WARNING: location id is required."
+                if "animalId" not in post_body:
+                    error_message += "WARNING: animal id is required."
+                new_employee = error_message
+                response = new_employee
 
         if resource == "customers":
             new_customer = create_customers(post_body)
