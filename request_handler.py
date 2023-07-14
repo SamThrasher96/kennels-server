@@ -34,7 +34,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     """Controls the functionality of any GET, PUT, POST, DELETE requests to the server
     """
 
-    # Here's a class function
 
     # Here's a method on the class that overrides the parent's method.
     # It handles any GET request.
@@ -121,8 +120,7 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_PUT(self):
         self._set_headers(204)
         content_len = int(self.headers.get('content-length', 0))
-        post_body = self.rfile.read(content_len)
-        post_body = json.loads(post_body)
+        post_body = json.loads(self.rfile.read(content_len))
 
         # Parse the URL
         (resource, id) = self.parse_url(self.path)
