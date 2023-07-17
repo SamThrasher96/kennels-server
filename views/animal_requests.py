@@ -167,3 +167,30 @@ def get_animals_by_location(location_id):
             animals.append(animal.__dict__)
             
     return animals
+
+def get_animals_by_status(status):
+    with sqlite3.connect("./kennel.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+        
+        db_cursor.execute("""
+        select
+            d.id,
+            d.name,
+            d.breed,
+            d.status,
+            d.location_id,
+            d.customer_id
+        FROM animal d
+        WHERE d.status = ?
+        """, ( status, ))
+        
+        animals = []
+        dataset = db_cursor.fetchall()
+        for row in dataset:
+            animal = Animal(row['id'], row['name'], row['breed'],
+                            row['status'], row['location_id'],
+                            row['customer_id'])
+            animals.append(animal.__dict__)
+            
+    return animals

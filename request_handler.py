@@ -4,7 +4,7 @@ from urllib.parse import urlparse, parse_qs
 from views import (get_all_animals, get_single_animal, get_single_location, get_all_locations, get_single_employee, get_all_employees,
                 get_single_customers, get_all_customers, create_animal, create_location, create_employee, create_customers, delete_animal, 
                 delete_employee, delete_customer, delete_locations, update_animal, update_locations, update_employee, update_customer, 
-                get_customers_by_email, get_animals_by_location)
+                get_customers_by_email, get_animals_by_location, get_employees_by_location, get_animals_by_status)
 
 
 
@@ -58,6 +58,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = get_single_customers(id)
                 else:
                     response = get_all_customers()
+            elif resource == "employees":
+                if id is not None:
+                    response = get_single_employee(id)
+                else:
+                    response = get_all_employees()
 
         else: # There is a ? in the path, run the query param functions
             (resource, query) = parsed
@@ -67,6 +72,10 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_customers_by_email(query['email'][0])
             if query.get('location_id') and resource == 'animals':
                 response = get_animals_by_location(query['location_id'][0])
+            if query.get('location_id') and resource == 'employees':
+                response = get_employees_by_location(query['location_id'][0])
+            if query.get('status') and resource == 'animals':
+                response = get_animals_by_status(query['status'][0])
 
         self.wfile.write(json.dumps(response).encode())
 
