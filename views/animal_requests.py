@@ -2,7 +2,7 @@ ANIMALS = [
     {
         "id": 1,
         "name": "Snickers",
-        "species": "Dog",
+        "breed": "Dog",
         "locationId": 1,
         "customerId": 4,
         "status": "Admitted"
@@ -10,7 +10,7 @@ ANIMALS = [
     {
         "id": 2,
         "name": "Roman",
-        "species": "Dog",
+        "breed": "Dog",
         "locationId": 1,
         "customerId": 2,
         "status": "Admitted"
@@ -18,7 +18,7 @@ ANIMALS = [
     {
         "id": 3,
         "name": "Blue",
-        "species": "Cat",
+        "breed": "Cat",
         "locationId": 2,
         "customerId": 1,
         "status": "Admitted"

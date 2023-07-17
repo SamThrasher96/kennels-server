@@ -2,14 +2,14 @@ EMPLOYEES = [
     {
         "id": 1,
         "name": "Sam Thrasher",
-        "locationId" : 2,
-        "animalId" : 1
+        "address": "569 NH Rd",
+        "locationId" : 2
     },
     {
         "id": 2,
         "name": "Lance Buckley",
-        "locationId" : 1,
-        "animalId" : 3
+        "address": "456 South Street",
+        "locationId" : 1
     },
 ]
 
