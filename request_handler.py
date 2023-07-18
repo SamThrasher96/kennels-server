@@ -138,14 +138,16 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "animals":
             success = update_animal(id, post_body)
-    # rest of the elif's
+        # rest of the elif's
 
         if success:
             self._set_headers(204)
+            response = "Success: Animal updated successfully."
         else:
             self._set_headers(404)
+            response = "Error: Animal not found or failed to update."
 
-        self.wfile.write("".encode())
+        self.wfile.write(response.encode())
 
     def _set_headers(self, status):
         # Notice this Docstring also includes information about the arguments passed to the function
