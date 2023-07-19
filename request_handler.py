@@ -142,7 +142,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if success:
             self._set_headers(204)
-            response = "Success: Animal updated successfully."
+            response = ""
         else:
             self._set_headers(404)
             response = "Error: Animal not found or failed to update."
